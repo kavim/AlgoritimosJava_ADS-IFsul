@@ -16,13 +16,16 @@ public class helloWord {
 	int quant_animal_bebe = 0;
 	int quant_total = 0;
 	int quero_100 = 100;
+	int volta = 0;
 	double quant_dinhero = 100;   
+	
+	
 
 	//difinindo mais numero possivel de machos sem importar o valor
 
 	while(quant_dinhero > 0){
 		
-		if(quant_dinhero >= macho && quant_animal_femea != 0 && quant_animal_macho < 2){
+		if(quant_dinhero >= macho && quant_animal_femea != 0){
 			quant_dinhero -= macho;
 			quant_animal_macho += 1;
 		}
@@ -32,7 +35,7 @@ public class helloWord {
 		}
 		else if(quant_dinhero >= bebe){
 			quant_dinhero -= bebe;
-			quant_animal_bebe += 2;
+			quant_animal_bebe += 3;
 		}
 
 		System.out.println("\n Unidades: ");
@@ -45,32 +48,53 @@ public class helloWord {
 		System.out.println("\n -------------------------------------------------- \n");
 	}
 
+	Scanner scanner = new Scanner(System.in);//aqui estou declarando um scanner que lerá da entrada padrão do sistema(console)
+
+	System.out.println("parte 2: distribuir até 100");
+	scanner.next();//aqui o programa irá esperar um entrada do teclado, e só vai continuar quando for pressionada a tecla enter.
 
 
-	// while(quant_total < quero_100){
-	// 	if(quant_dinhero >= macho && quant_animal_femea != 0 && trava == false){
-	// 		quant_dinhero -= macho;
-	// 		quant_animal_macho += 1;
-	// 		quant_total +=1; 
-	// 	}
-	// 	if(quant_dinhero >= femea && quant_animal_bebe != 0 && trava2 == false){
-	// 		quant_dinhero -= femea;
-	// 		quant_animal_femea += 1;
-	// 		quant_total +=1; 
-	// 	}
-	// 	if(quant_dinhero >= bebe){
-	// 		quant_dinhero -= bebe;
-	// 		quant_animal_bebe += 1;
-	// 		quant_total +=1; 
-	// 	}
+	while(quant_total < quero_100 || quant_dinhero > 0.0){
 
-	// 	if(quant_dinhero <= 0){
+		volta++;
+		System.out.println("volta: "+volta+" R$: "+quant_dinhero);
 
-	// 	}
+		//BALANÇO
+		if(quant_dinhero > 0.0){
 
-	// 	System.out.println("\n total : " + quant_total);
-	// }
-		
+			if (quant_animal_macho >= 1) {
+				System.out.println("descontando macho");
+				quant_animal_macho -= 1;
+				quant_dinhero = macho;
+			}
+
+		}
+
+		//COMPRAR
+		if(quant_dinhero >= macho && quant_animal_femea != 0 && trava == false){
+			quant_dinhero -= macho;
+			quant_animal_macho += 1;
+			
+		}
+		if(quant_dinhero >= femea && quant_animal_bebe != 0 && trava2 == false){
+			quant_dinhero -= femea;
+			quant_animal_femea += 1;
+			
+		}
+		if(quant_dinhero >= bebe){
+			quant_dinhero -= bebe;
+			quant_animal_bebe += 1;
+			
+		}
+
+
+		System.out.println("\n total : " + quant_total);
+		System.out.println("\n -----------------------------------------------------------\n");
+
+		scanner.next();
+	}
+	
+	scanner.close();
 
     }
     
