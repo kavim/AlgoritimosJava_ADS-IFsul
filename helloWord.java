@@ -10,6 +10,7 @@ public class helloWord {
 
 	boolean trava = false;
 	boolean trava2 = false;
+	boolean trava3 = false;
 	
 	int quant_animal_macho = 0;
 	int quant_animal_femea = 0;
@@ -48,50 +49,83 @@ public class helloWord {
 		System.out.println("\n -------------------------------------------------- \n");
 	}
 
+	quant_total = (quant_animal_macho+quant_animal_femea+quant_animal_bebe);
+
+	System.out.println("\n ------------------------Parte 2: distribuir até 100 ------------------------ \n");
 	Scanner scanner = new Scanner(System.in);//aqui estou declarando um scanner que lerá da entrada padrão do sistema(console)
+	scanner.nextLine();
 
-	System.out.println("parte 2: distribuir até 100");
-	scanner.next();//aqui o programa irá esperar um entrada do teclado, e só vai continuar quando for pressionada a tecla enter.
-
-
-	while(quant_total < quero_100 || quant_dinhero > 0.0){
+	while(quant_total < quero_100){
 
 		volta++;
-		System.out.println("volta: "+volta+" R$: "+quant_dinhero);
+		System.out.println("\n ------- Volta: "+volta+" R$: "+quant_dinhero+"-------");
 
 		//BALANÇO
-		if(quant_dinhero > 0.0){
+		if(quant_dinhero == 0.0){
 
-			if (quant_animal_macho >= 1) {
-				System.out.println("descontando macho");
+			if(quant_animal_femea > 1){
+				trava2 = true;
+				trava = false;
+				trava3 = false;
+				System.out.println("\n Descontando FEMEA");
+				quant_animal_femea -= 1;
+				quant_dinhero += femea;
+				System.out.println("  + R$: "+quant_dinhero);
+			}
+			else if (quant_animal_macho > 1) {
+				trava = true;
+				trava2 = false;
+				trava3 = false;
+				System.out.println("\n Descontando MACHO");
 				quant_animal_macho -= 1;
-				quant_dinhero = macho;
+				quant_dinhero += macho;
+				System.out.println("  + R$: "+quant_dinhero);
 			}
 
 		}
 
 		//COMPRAR
-		if(quant_dinhero >= macho && quant_animal_femea != 0 && trava == false){
+		
+		if(quant_dinhero >= macho && quant_animal_femea != 0 && trava == false && quant_total + 1 <= quero_100){
+			System.out.println("\n Comprando macho.");
 			quant_dinhero -= macho;
+			System.out.println("  -R$: "+macho);
 			quant_animal_macho += 1;
-			
 		}
-		if(quant_dinhero >= femea && quant_animal_bebe != 0 && trava2 == false){
+		if(quant_dinhero >= femea && quant_animal_bebe != 0 && trava2 == false && quant_total + 1 <= quero_100){
+			System.out.println("\n Comprando femea.");
 			quant_dinhero -= femea;
+			System.out.println("  -R$: "+femea);
 			quant_animal_femea += 1;
-			
 		}
-		if(quant_dinhero >= bebe){
+		if(quant_dinhero >= bebe && trava3 == false){
+			System.out.println("\n Comprando BB.");
 			quant_dinhero -= bebe;
-			quant_animal_bebe += 1;
-			
+			System.out.println("  -R$: "+bebe);
+			quant_animal_bebe += 3;
+		}else if(quant_total + 3 <= quero_100){
+				trava = false;
+				trava2 = false;
+				trava3 = true;
+				System.out.println("\n Descontando BB");
+				quant_animal_bebe -= 3;
+				quant_dinhero += bebe;
+				System.out.println("  + R$: "+quant_dinhero);
+		}else{
+			trava3 = false;
 		}
 
+		System.out.println("\n Unidades: ");
+		System.out.println(" macho : " + quant_animal_macho);
+		System.out.println(" femea : " + quant_animal_femea);
+		System.out.println(" bebe : " + quant_animal_bebe);
+		System.out.println(" total R$ : " + quant_dinhero);
 
-		System.out.println("\n total : " + quant_total);
+		quant_total = quant_animal_bebe + quant_animal_femea + quant_animal_macho;
+		System.out.println("\n Total BIXO: " + quant_total);
 		System.out.println("\n -----------------------------------------------------------\n");
 
-		scanner.next();
+		scanner.nextLine();
 	}
 	
 	scanner.close();
